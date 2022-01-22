@@ -62,40 +62,39 @@ function dynamic_sort(arr, type, order){
 
     arr.forEach((item, i) => {
         let iObj = createObj(item, i)
+        // I think instead of pushing directly, it might be better later to keep these as variables
+        // it may ease flexibility when adjusting for different orders based on the arguments
         let lesser;
-        let greater;
         // according to the type...
         if(type === 'num'){
             if(iObj.year && pivot.year){
                 // find the lower year
                 if(iObj.year < pivot.year){
-                    lesser = item
-                    greater = temp
+                    lesser = true;
                 } else if (iObj.year >= pivot.year){ // <====== change this back to just 'greater than'
-                    lesser = temp
-                    greater = item
+                    lesser = false;
                 } else {
                     let x = [iObj.make, pivot.make].sort()
-                    lesser = x[0]
-                    greater = x[1]
+                    if(x[0] === iObj.make){ lesser = true }
+                    else { lesser = false}
                 }
-            } else 
-            // if only one has year, it goes first (or second)
-            if(iObj.year || pivot.year){
+            } else if(iObj.year || pivot.year){
+                // if only one has year, it goes first (or second)
                 if(iObj.year){
-                    lesser = item
-                    greater = temp
+                    lesser = true
                 } else {
-                    lesser = temp
-                    greater = item
+                    lesser = false
                 }
-            } else 
-            // neither have year, so go alphabetically
-            {
-
+            } else {
+                // neither have year, so go alphabetically
+                let x = [iObj.make, pivot.make].sort()
+                if(x[0] === iObj.make){ lesser = true }
+                else { lesser = false}
             }
         }
-            // then to the order...
+        // then to the order...
+        if(lesser === true){ lowers.push(item) }
+        else { highers.push(item) }
     })
 
     return [
@@ -103,14 +102,13 @@ function dynamic_sort(arr, type, order){
         temp,
         ...dynamic_sort(highers, type, order)
     ]
-
 }
 // console.log(hasYear(makes[0]))
 // console.log(hasYear(makes[1]))
 // console.log(hasYear(makes[2]))
 // console.log(hasYear(makes[3]))
 // console.log(hasYear(makes[4]))
-// console.log(dynamic_sort(makes, types[0], orders[0]));
+console.log(dynamic_sort(makes, types[0], orders[0]));
 
 // let y = ['allison','yolanda','alex','borris','netasha']
 // console.log(['allison','yolanda','alex','borris','netasha'].sort())
