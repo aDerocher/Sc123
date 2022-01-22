@@ -63,9 +63,9 @@
     so we can run it.
 */
 $names = [
+    "Buicks",
     "Audis",
     "Audis 2018",
-    "Buicks",
     "2021 Cadillacs",
     "Chevrolets 2019",
     "2020 Chevrolets",
@@ -90,14 +90,42 @@ foreach ($argv as $arg) {
     }
 }
 
-function dynamicSorter($names, $sort, $direction) {
+function dynamic_sorter($names, $sort, $direction) {
+  // create one array for items with years, one for those with just letters
+  $letters = array();
+  $years = array();
+
+  // if an element string contains a year, push it to the years array
+  foreach ($names as $key => $val) {
+    // get the length of the element string we're checking
+    $len = strlen($val) -1;
+    if (is_numeric($val[0]) || is_numeric($val[$len]) ){
+      array_push($years, $val);
+    } else {
+    // if no year in element, push it into the letters array
+      array_push($letters, $val);
+    }
+  }
+
+  // depending on desired direction:
+  // if ($direction =='asc'){
+    sort($alpha, SORT_NUMERIC, SORT_ASC);
+    sort($letters, SORT_NUMERIC, SORT_ASC);
+    // combine and echo result
+  // } else {
+    sort($alpha, SORT_NUMERIC, SORT_DESC);
+    sort($letters, SORT_NUMERIC, SORT_DESC);
+    // combine and echo result
+  // }
+
+  // for testing
   echo "Sorting Now! => :\n";
-  foreach ($names as $val) {
-    echo "$val ";
+  foreach ($letters as $key => $val) {
+    echo "$val $key \n";
   }
 }
 
 echo "Sorting by ".$sort." ".$direction.":\n";
 print_r(
-  dynamicSorter($names, $sort, $direction)  // TODO
+  dynamic_sorter($names, $sort, $direction)  // TODO
 );
