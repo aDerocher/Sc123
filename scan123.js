@@ -54,13 +54,14 @@ function dynamic_sort(arr, type, order){
         return arr
     }
 
-    let n = '0123456789';
     let temp = arr[0]
-    let pivot = createObj(arr.shift())
+    let pivot = createObj(temp)
     let lowers = [];
     let highers = [];
 
-    arr.forEach((item, i) => {
+    // arr.forEach((item, i) => {
+    for(let i=1; i<arr.length; i++){
+        let item = arr[i];
         let iObj = createObj(item, i)
         // I think instead of pushing directly, it might be better later to keep these as variables
         // it may ease flexibility when adjusting for different orders based on the arguments
@@ -95,13 +96,8 @@ function dynamic_sort(arr, type, order){
         // then to the order...
         if(lesser === true){ lowers.push(item) }
         else { highers.push(item) }
-    })
-
-    return [
-        ...dynamic_sort(lowers, type, order),
-        temp,
-        ...dynamic_sort(highers, type, order)
-    ]
+    }
+    return dynamic_sort(lowers, type, order).concat([temp], dynamic_sort(highers, type, order))
 }
 // console.log(hasYear(makes[0]))
 // console.log(hasYear(makes[1]))
@@ -109,8 +105,14 @@ function dynamic_sort(arr, type, order){
 // console.log(hasYear(makes[3]))
 // console.log(hasYear(makes[4]))
 console.log(dynamic_sort(makes, types[0], orders[0]));
+console.log(dynamic_sort(makes, types[0], orders[0]));
+console.log('=======================')
 
 // let y = ['allison','yolanda','alex','borris','netasha']
+// let z = [...y].shift()
+// console.log(typeof z === 'string')
+// console.log(z)
+// console.log(y)
 // console.log(['allison','yolanda','alex','borris','netasha'].sort())
 // console.log(y.sort(function(a,b){
 //     if(typeof a === 'string' && typeof b !== 'string'){
