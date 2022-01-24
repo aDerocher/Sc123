@@ -48,8 +48,45 @@ $tests = [
     // Should return the updated list of contacts.
     ['method' => 'get', 'path' => '/contacts'],
 ];
-foreach ($tests as $test) {
-    echo "Request: ".$test['method']." ".$test['path']."\n";
-    $response = CALL_YOUR_FUNCTION_HERE;
-    echo "Response:\n".print_r($response, true)."\n";
+
+//========================================================
+// Im struggling with how to treat the file as a database.
+// do i set up my own local database and make PHP calls to it?
+// or am i pseudo-pseudo coding a solution involving the .csv?
+  // $myfile = fopen('/contacts.csv', 'r+');
+  // echo $myfile;
+//========================================================
+// See contacts.sql for database
+
+
+//========================================================
+// Going to build out the function to handle the cases based on their route first
+function handle_request($method, $path, $test=null){
+  // Only two options at this point are GET and POST (add edge case for errors)
+  switch ($method) {
+    case 'get':
+      echo "--> Get: $method at path $path \n";
+      // $_SERVER["GET"];       ??????????
+      // return json_encode(<<response>>)
+      break;
+    case 'post':
+      // If there's no data with the post request, throw error
+      if(!$test['data']){
+        echo "Error: Post requests require data";
+      } else {
+        echo "--> Post: $method at path $path with valid data\n";
+        // return json_encode(<<response>>)
+      }
+      break;
+    default:
+      echo "Error: Invalid method \n";
+      // return json_encode(<<response>>)
+      break;
+  }
 }
+
+// foreach ($tests as $test) {
+//     echo "Request: ".$test['method']." ".$test['path']."\n";
+//     $response = handle_request($test['method'] , $test['path'], $test);
+//     echo "Response:\n".print_r($response, true)."\n";
+// }
