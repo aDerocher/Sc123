@@ -166,19 +166,12 @@ function dynamic_sort(arr, type, order){
 
 }
 
-// let types = ['num', 'alph']
-// let orders = ['asc', 'desc']
-console.log('by year - ascending')
+
+console.log(' ===== by year - ascending ===== ')
 console.log(dynamic_sort(makes, 'num','asc')); // by year - ascending
-console.log('by year - descending');
+console.log(' ===== by year - descending ===== ');
 console.log(dynamic_sort(makes, 'num','desc')); // by year - ascending
-console.log('alphabetically - ascending');
+console.log(' ===== alphabetically - ascending ===== ');
 console.log(dynamic_sort(makes, 'alph','asc')); // alphabetically - ascending
-console.log('alphabetically - descending');
+console.log(' ===== alphabetically - descending ===== ');
 console.log(dynamic_sort(makes, 'alph','desc')); // alphabetically - descending
-// console.log(dynamic_sort(makes, types[1], orders[0])); // alphabetically - ascending
-// console.log(dynamic_sort(makes, types[0], orders[0])); // by year - descending
-// console.log(dynamic_sort(makes, types[1], orders[0])); // alphabeticall - descending
-// console.log(dynamic_sort(makes, types[0], orders[0]).length);
-// let myArr = ['2022', '1999', undefined, '2013']
-// console.log(myArr.sort())
