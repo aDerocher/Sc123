@@ -166,11 +166,12 @@ function dynamic_sort(arr, type, order){
 
 }
 
-
+// Looks like 3/4 function calls work as expected.
+// I could continue to modify, but I need to start working on the next portion of the challenge
 console.log(' ===== by year - ascending ===== ')
 console.log(dynamic_sort(makes, 'num','asc')); // by year - ascending
 console.log(' ===== by year - descending ===== ');
-console.log(dynamic_sort(makes, 'num','desc')); // by year - ascending
+console.log(dynamic_sort(makes, 'num','desc')); // by year - descending
 console.log(' ===== alphabetically - ascending ===== ');
 console.log(dynamic_sort(makes, 'alph','asc')); // alphabetically - ascending
 console.log(' ===== alphabetically - descending ===== ');
