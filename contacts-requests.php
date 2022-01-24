@@ -49,16 +49,24 @@ $tests = [
     ['method' => 'get', 'path' => '/contacts'],
 ];
 
+//========================================================
 // Im struggling with how to treat the file as a database.
-$myfile = fopen('/contacts.csv', 'r+');
-echo $myfile;
+// do i set up my own local database and make PHP calls to it?
+// or am i pseudo-pseudo coding a solution involving the .csv?
+  // $myfile = fopen('/contacts.csv', 'r+');
+  // echo $myfile;
+//========================================================
+// See contacts.sql for database
 
+
+//========================================================
 // Going to build out the function to handle the cases based on their route first
 function handle_request($method, $path, $test=null){
   // Only two options at this point are GET and POST (add edge case for errors)
   switch ($method) {
     case 'get':
       echo "--> Get: $method at path $path \n";
+      // $_SERVER["GET"];       ??????????
       // return json_encode(<<response>>)
       break;
     case 'post':
@@ -77,8 +85,8 @@ function handle_request($method, $path, $test=null){
   }
 }
 
-foreach ($tests as $test) {
-    echo "Request: ".$test['method']." ".$test['path']."\n";
-    $response = handle_request($test['method'] , $test['path'], $test);
-    echo "Response:\n".print_r($response, true)."\n";
-}
+// foreach ($tests as $test) {
+//     echo "Request: ".$test['method']." ".$test['path']."\n";
+//     $response = handle_request($test['method'] , $test['path'], $test);
+//     echo "Response:\n".print_r($response, true)."\n";
+// }
