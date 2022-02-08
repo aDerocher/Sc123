@@ -1,15 +1,25 @@
 
 
-
+.sortable:active{
+  background-color: grey;;
+}
 .sortable:hover{
     cursor: pointer;
 }
-.sortable{
-    border: 1px solid red;
+.dyno-table{
+    margin: 5rem auto;
 }
-
+.dyno-table > *{
+    padding: 1rem;
+}
+.dyno-table-head-row{
+    background-color: rgb(110, 110, 110);
+    color: white;
+}
 .sm-grey{
-    color: grey;
+    float: right;
+    text-align: right;
+    color: white;
     font-size: smaller;
-    margin-left: 10px;
+    margin-right: 10px;
 }

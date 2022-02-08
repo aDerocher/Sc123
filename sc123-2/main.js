@@ -61,3 +61,12 @@ for (let i = 0; i < headers.length; i++) {
 // TODO: make sure that only the columnsin the corresponding table get sorted.
 // Otherwise, tables will have similar index values, and sorting the
 // column 0 button will sort all tables by their column 0.
+
+
+// BONUS TODO: With more time, I would bring in a react app, and use some state
+// variables to maintain which columns were currently being sorted by. I think that
+// could make it really easy to layer on sorting techniques. So I could apply sorting
+// by name, then layer on top a sort by price, and so on. I could probably do this using
+// DOM Manipulation, but I think it could get pretty ugly pretty quickly, especially if
+// this has to be exportable to multiple tables. With a react component, the states would
+// stay compartmentalized automatically.
