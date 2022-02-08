@@ -1,0 +1,15 @@
+
+
+
+.sortable:hover{
+    cursor: pointer;
+}
+.sortable{
+    border: 1px solid red;
+}
+
+.sm-grey{
+    color: grey;
+    font-size: smaller;
+    margin-left: 10px;
+}
