@@ -30,7 +30,7 @@ class Request extends \Http\AuthenticatedRequest {
             return self::getEntry($model);
         }
         // GET /admins/{id}/edit
-        if ((count($acts) == 2) && 
+        if ((count($acts) == 2) &&
             (strtolower($acts[1]) == 'edit')) {
             return self::getEditForm($model);
         }
@@ -221,10 +221,70 @@ class Request extends \Http\AuthenticatedRequest {
         return self::entryConfirmation($model, 'Admin edited successfully!');
     }
 
+
+
+
+
+
     // \Admins\Request::handleDelete :: void -> \Core\Http\Response
     // The only valid request is:
     //   DELETE /admins/{id}
     // TODO
+
+    // The DELETE function is going to be somewhat similar to the PATCH request in that:
+    // - we need to validate that the request parameters are valid
+    // - that the parameters given lead to an existing datapoint
+    // If that model is found in the database, then delete it and return a success message
+    public static function handleDelete() {
+        // do the error checking to make sure that the path is valid for calling deletion
+        $acts = self::pathQueryParts();
+        if ((empty($acts)) ||
+            (!is_numeric($acts[0])) ||
+            (count($acts) == 1)){
+            return self::invalidPathResponse();
+        }
+        // find the model as specified by ID. If its not, return invalid
+        $model = Model::fromId($acts[0]);
+        if (is_null($model)) {
+            return self::invalidIdResponse($acts[0]);
+        }
+        // I'm not 100% sure how the permissions work, but it would make sense that 'could edit'
+        // permission would be the same as the 'could delete' permissions - that both the admins
+        // and the account owners are approved for these actions. If thats the case, I can
+        // just re-use the 'canUserEditEntry' function
+        if(!Model::canUserEditEntry(\Login\Session::user(), $model)) {
+            if (self::returnType() == Response::TYPE_JSON) {
+                return Response::asJson(
+                    "You don't have permission to delete the specified user.",
+                    Response::CODE_UNPROCESSABLE
+                );
+            }
+            //  I'm not sure how to return an appropriate message in the HTML
+            //  for the users if they dont have permission to delete.
+            //  Maybe this will suffice
+            return Response::asHtml(View::entry($model));
+        }
+
+        // since we know:
+        //    1. the request is valid
+        //    2. the item exists
+        //    3. the user has permission to edit
+        // we can run the deletion function and return the list of admins page
+        if($model->delete()){
+            // I think this would send a 200 response code which is ok for delete.
+            return self::getList();
+        }
+        // if the delete failed(returned false) I would need to send a failure response.
+        // I think I can craft my own and re-direct to the admins page
+        // by recycling code from the entry confirmation function
+        
+        \Messages\Alerts::add('User deletion failed');
+        $response = new Response();
+        $response->addHeaders(['Location' => '/admins/']);
+        return $response;
+    }
+
+
 
     // \Admins\Request::entryConfirmation :: (Model, string?) -> \Core\Http\Response
     public static function entryConfirmation($model, $message = null) {
