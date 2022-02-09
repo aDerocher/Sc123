@@ -1,7 +1,7 @@
 
 
 .sortable:active{
-  background-color: grey;;
+  background-color: grey;
 }
 .sortable:hover{
     cursor: pointer;
